@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Lollipop Transitions</string>
     <string name="start">Start</string>
+    <string name="coordinated_slide_transition">Coordinated Slide Transition</string>
+    <string name="change_transform_and_change_image_transform">ChnageTransform and ChangeImageTransform</string>
+    <string name="arc_motion" translatable="false">ArcMotion</string>
 </resources>

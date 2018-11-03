@@ -1,8 +1,11 @@
 package me.mehdi.lollipoptransitions;
 
 
-
-import android.database.DataSetObserver;
+import android.content.Context;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.ArcMotion;
@@ -10,8 +13,8 @@ import android.transition.ChangeBounds;
 import android.transition.ChangeClipBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
-import android.transition.Explode;
 import android.transition.PathMotion;
+import android.transition.PatternPathMotion;
 import android.transition.Scene;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -19,16 +22,15 @@ import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.transition.TransitionSet;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
-
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,63 +46,72 @@ public class MainActivity extends AppCompatActivity {
 
 
     Transition mTransform;
+    private ViewGroup mRoot;
+    private Rect mRect;
+    private boolean mClipStarted;
+    private Context mContext = this;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mRoot = findViewById(R.id.root);
         mImageView = findViewById(R.id.imageView);
         mImageView2 = findViewById(R.id.imageView2);
         mImageView3 = findViewById(R.id.dog);
         mButton = findViewById(R.id.start);
         mGridView = findViewById(R.id.gridview);
 
+        mRect = mImageView3.getClipBounds();
+
         mGridView.setAdapter(new GridAdapter(this));
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener () {
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView a, View v, int position, long id) {
-                TransitionManager.beginDelayedTransition((ViewGroup)findViewById(android.R.id.content), new TransitionSet().addTransition(new ChangeTransform()).addTransition(new ChangeImageTransform()));
-                v.setScaleX(v.getScaleX() == 1.0f ? 3.0f : 1.0f);
-                v.setScaleY(v.getScaleY() == 1.0f ? 3.0f : 1.0f);
-                v.setRotation(v.getRotation() == 0 ? 45 : 0);
-                ImageView image = (ImageView)v;
-                image.setScaleType(image.getScaleType() == ImageView.ScaleType.CENTER ? ImageView.ScaleType.CENTER_INSIDE : ImageView.ScaleType.CENTER);
+                switch (position) {
+                    case 0:
+                        TransitionManager.beginDelayedTransition((ViewGroup) findViewById(android.R.id.content), new TransitionSet().addTransition(new ChangeTransform()).addTransition(new ChangeImageTransform()));
+                        v.setScaleX(v.getScaleX() == 1.0f ? 3.0f : 1.0f);
+                        v.setScaleY(v.getScaleY() == 1.0f ? 3.0f : 1.0f);
+                        v.setRotation(v.getRotation() == 0 ? 45 : 0);
+                        ImageView image = (ImageView) v;
+                        image.setScaleType(image.getScaleType() == ImageView.ScaleType.CENTER ? ImageView.ScaleType.CENTER_INSIDE : ImageView.ScaleType.CENTER);
+                        Snackbar.make(mRoot, R.string.change_transform_and_change_image_transform, Snackbar.LENGTH_LONG).show();
+                        break;
+
+                    case 1:
+                        ImageView img = (ImageView) v;
+                        Transition transition = TransitionInflater.from(mContext).inflateTransition(R.transition.arc_motion);
+                        TransitionManager.beginDelayedTransition(mGridView, transition);
+                        img.setTranslationX(500);
+                        img.setTranslationY(600);
+                        break;
+                }
             }
         });
         setTitle(String.format("(%s, %s)", mImageView.getX(), mImageView.getY()));
-        final ViewGroup root = findViewById(R.id.root);
-        mScene2 = Scene.getSceneForLayout(root, R.layout.activity_main2, this);
+        mScene2 = Scene.getSceneForLayout(mRoot, R.layout.activity_main2, this);
 
         //Initialize transitions
         mTransition = TransitionInflater.from(this).inflateTransition(R.transition.transitions);
         mTransform = TransitionInflater.from(this).inflateTransition(R.transition.transforms).setDuration(3000);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                for(int i = 0; i < mGridView.getChildCount(); i++) {
-                    TransitionManager.beginDelayedTransition(mGridView, new Slide(Gravity.START));
-                    View view = mGridView.getChildAt(i);
-                    view.setVisibility(view.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
-
-//                    view.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                                view.setVisibility(view.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
-//                        }
-//                    }, TRANSITION_DURATION * i);
-                }
-
+                ImageView img = (ImageView) v;
+                Transition transition = TransitionInflater.from(mContext).inflateTransition(R.transition.arc_motion);
+                TransitionManager.beginDelayedTransition(mGridView, transition.setDuration(5000));
+                img.setTranslationX(500);
+                img.setTranslationY(-600);
 
 //                TransitionManager.go(mScene2, mTransform);
 ////                TransitionManager.go(mScene2, mTransition);
 //                setTitle(String.format("(%s, %s)", mImageView.getX(), mImageView.getY()));
 
 
-//Todo: only one of them works at a time (TransitionManager.go or TransitionManager.beginDelayedTransition)
 //                TransitionManager.beginDelayedTransition(root, new ChangeImageTransform());
 ////                mImageView3.setImageResource(R.drawable.small_dog);
 //                mImageView3.setScaleType(mImageView3.getScaleType() == ImageView.ScaleType.CENTER ? ImageView.ScaleType.CENTER_INSIDE : ImageView.ScaleType.CENTER);
@@ -118,6 +129,56 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        mImageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TransitionManager.beginDelayedTransition(mRoot, new ChangeClipBounds());
+                if (mClipStarted) {
+                    mImageView3.setClipBounds(mRect);
+                    mClipStarted = false;
+                } else {
+                    mImageView3.setClipBounds(new Rect(100, 100, 400, 700));
+                    mClipStarted = true;
+                }
+
+            }
+        });
+
+
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.grid_move:
+                moveGrid();
+                Snackbar.make(mRoot, R.string.coordinated_slide_transition, Snackbar.LENGTH_LONG).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void moveGrid() {
+        for (int i = 0; i < mGridView.getChildCount(); i++) {
+            final View view = mGridView.getChildAt(i);
+
+            view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    TransitionManager.beginDelayedTransition(mGridView, new Slide(Gravity.START));
+                    view.setVisibility(view.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                }
+            }, TRANSITION_DURATION * i);
+        }
 
     }
 }
