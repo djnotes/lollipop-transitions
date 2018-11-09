@@ -4,4 +4,7 @@
     <string name="coordinated_slide_transition">Coordinated Slide Transition</string>
     <string name="change_transform_and_change_image_transform">ChnageTransform and ChangeImageTransform</string>
     <string name="arc_motion" translatable="false">ArcMotion</string>
+    <string name="coffee_title">A delicious cup of coffee in the morning</string>
+    <string name="click_on_coffee">Click on the coffee to see a shared-element transition</string>
+    <string name="coffee">coffee</string>
 </resources>

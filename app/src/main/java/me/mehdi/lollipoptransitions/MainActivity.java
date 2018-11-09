@@ -2,19 +2,15 @@ package me.mehdi.lollipoptransitions;
 
 
 import android.content.Context;
-import android.graphics.Path;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.ArcMotion;
-import android.transition.ChangeBounds;
 import android.transition.ChangeClipBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
-import android.transition.PathMotion;
-import android.transition.PatternPathMotion;
 import android.transition.Scene;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -26,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnticipateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -36,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int TRANSITION_DURATION = 100;
     Transition mTransition;
-    ImageView mImageView;
+    ImageView mCoffeeImage;
     ImageView mImageView2;
     ImageView mImageView3;
     Scene mScene1;
@@ -57,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRoot = findViewById(R.id.root);
-        mImageView = findViewById(R.id.imageView);
+        mCoffeeImage = findViewById(R.id.coffee);
         mImageView2 = findViewById(R.id.imageView2);
         mImageView3 = findViewById(R.id.dog);
         mButton = findViewById(R.id.start);
@@ -87,45 +82,26 @@ public class MainActivity extends AppCompatActivity {
                         img.setTranslationX(500);
                         img.setTranslationY(600);
                         break;
+                    case 2:
+                        ImageView imgShared = (ImageView) v;
+
+                        break;
                 }
             }
         });
-        setTitle(String.format("(%s, %s)", mImageView.getX(), mImageView.getY()));
+        setTitle(String.format("(%s, %s)", mCoffeeImage.getX(), mCoffeeImage.getY()));
         mScene2 = Scene.getSceneForLayout(mRoot, R.layout.activity_main2, this);
 
         //Initialize transitions
         mTransition = TransitionInflater.from(this).inflateTransition(R.transition.transitions);
         mTransform = TransitionInflater.from(this).inflateTransition(R.transition.transforms).setDuration(3000);
 
-        mImageView.setOnClickListener(new View.OnClickListener() {
+        mCoffeeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ImageView img = (ImageView) v;
-                Transition transition = TransitionInflater.from(mContext).inflateTransition(R.transition.arc_motion);
-                TransitionManager.beginDelayedTransition(mGridView, transition.setDuration(5000));
-                img.setTranslationX(500);
-                img.setTranslationY(-600);
-
-//                TransitionManager.go(mScene2, mTransform);
-////                TransitionManager.go(mScene2, mTransition);
-//                setTitle(String.format("(%s, %s)", mImageView.getX(), mImageView.getY()));
-
-
-//                TransitionManager.beginDelayedTransition(root, new ChangeImageTransform());
-////                mImageView3.setImageResource(R.drawable.small_dog);
-//                mImageView3.setScaleType(mImageView3.getScaleType() == ImageView.ScaleType.CENTER ? ImageView.ScaleType.CENTER_INSIDE : ImageView.ScaleType.CENTER);
-//                mImageView3.setX(50);
-//                mImageView3.setY(600);
-//
-//
-//                mImageView3.setScaleX(2f);
-//                mImageView3.setScaleY(1.5f);
-
-//                //Hide mImageView2
-//                mImageView.setVisibility(View.GONE);
-//                mImageView2.setVisibility(View.GONE);
-//                mImageView3.setVisibility(View.GONE);
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, mCoffeeImage, getString(R.string.coffee));
+                startActivity(intent, options.toBundle());
 
             }
         });
