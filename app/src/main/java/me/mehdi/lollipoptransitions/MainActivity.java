@@ -4,10 +4,14 @@ package me.mehdi.lollipoptransitions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.ArcMotion;
+import android.transition.ChangeBounds;
 import android.transition.ChangeClipBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
@@ -32,9 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int TRANSITION_DURATION = 100;
     Transition mTransition;
     ImageView mCoffeeImage;
-    ImageView mImageView2;
-    ImageView mImageView3;
-    Scene mScene1;
+    ImageView mCatImage;
+    ImageView mDogImage;
     Scene mScene2;
     Button mButton;
     GridView mGridView;
@@ -53,14 +56,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRoot = findViewById(R.id.root);
         mCoffeeImage = findViewById(R.id.coffee);
-        mImageView2 = findViewById(R.id.imageView2);
-        mImageView3 = findViewById(R.id.dog);
+        mCatImage = findViewById(R.id.cat);
+        mDogImage = findViewById(R.id.dog);
         mButton = findViewById(R.id.start);
         mGridView = findViewById(R.id.gridview);
 
-        mRect = mImageView3.getClipBounds();
+        mRect = mDogImage.getClipBounds();
 
         mGridView.setAdapter(new GridAdapter(this));
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transition transition = TransitionInflater.from(mContext).inflateTransition(R.transition.arc_motion);
+                Transition changeBounds = new ChangeBounds();
+                changeBounds.setPathMotion(new ArcMotion());
+                TransitionManager.beginDelayedTransition(mRoot, changeBounds);
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone((ConstraintLayout)mRoot);
+                constraintSet.connect(v.getId(), ConstraintSet.END, R.id.root, ConstraintSet.END, 0);
+                constraintSet.connect(v.getId(), ConstraintSet.BOTTOM, R.id.root, ConstraintSet.BOTTOM, 0);
+                constraintSet.applyTo((ConstraintLayout)mRoot);
+            }
+        });
+
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView a, View v, int position, long id) {
@@ -79,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
                         ImageView img = (ImageView) v;
                         Transition transition = TransitionInflater.from(mContext).inflateTransition(R.transition.arc_motion);
                         TransitionManager.beginDelayedTransition(mGridView, transition);
-                        img.setTranslationX(500);
-                        img.setTranslationY(600);
+                        ConstraintSet constraintSet = new ConstraintSet();
+                        constraintSet.clone((ConstraintLayout)mRoot);
+                        constraintSet.connect(v.getId(), ConstraintSet.END, R.id.root, ConstraintSet.END, 0);
+                        constraintSet.connect(v.getId(), ConstraintSet.BOTTOM, R.id.root, ConstraintSet.BOTTOM, 0);
+                        constraintSet.applyTo((ConstraintLayout)mRoot);
                         break;
                     case 2:
                         ImageView imgShared = (ImageView) v;
@@ -106,15 +127,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mImageView3.setOnClickListener(new View.OnClickListener() {
+        mDogImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TransitionManager.beginDelayedTransition(mRoot, new ChangeClipBounds());
                 if (mClipStarted) {
-                    mImageView3.setClipBounds(mRect);
+                    mDogImage.setClipBounds(mRect);
                     mClipStarted = false;
                 } else {
-                    mImageView3.setClipBounds(new Rect(100, 100, 400, 700));
+                    mDogImage.setClipBounds(new Rect(100, 100, 400, 700));
                     mClipStarted = true;
                 }
 
