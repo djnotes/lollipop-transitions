@@ -16,7 +16,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/coffee"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/cat" />
+        app:srcCompat="@drawable/cat"
+        android:transitionName="catTransition"
+        />
+
 
     <Button
         android:id="@+id/start"
@@ -37,7 +40,10 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/coffee"
-        app:srcCompat="@drawable/dog" />
+        app:srcCompat="@drawable/dog"
+        android:transitionName="dogTransition"
+        />
+
     <GridView
         android:id="@+id/gridview"
         android:layout_width="0dp"

@@ -3,11 +3,13 @@ package me.mehdi.lollipoptransitions;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.ArcMotion;
@@ -94,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 1:
-                        ImageView img = (ImageView) v;
                         Transition transition = TransitionInflater.from(mContext).inflateTransition(R.transition.arc_motion);
                         TransitionManager.beginDelayedTransition(mGridView, transition);
                         ConstraintSet constraintSet = new ConstraintSet();
@@ -102,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
                         constraintSet.connect(v.getId(), ConstraintSet.END, R.id.root, ConstraintSet.END, 0);
                         constraintSet.connect(v.getId(), ConstraintSet.BOTTOM, R.id.root, ConstraintSet.BOTTOM, 0);
                         constraintSet.applyTo((ConstraintLayout)mRoot);
+                        Snackbar.make(mRoot, R.string.arc_motion, Snackbar.LENGTH_LONG).show();
                         break;
                     case 2:
-                        ImageView imgShared = (ImageView) v;
-
+                        startActivity(new Intent(MainActivity.this, DetailActivity.class), ActivityOptionsCompat.makeThumbnailScaleUpAnimation(mCoffeeImage, BitmapFactory.decodeResource(getResources(), R.drawable.girl), 0, 0).toBundle());
                         break;
                 }
             }
@@ -121,8 +122,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, mCoffeeImage, getString(R.string.coffee));
+                Pair []views = new Pair[]{Pair.create(mCoffeeImage, "coffee"), Pair.create(mCatImage, "catTransition"), Pair.create(mDogImage, "dogTransition")};
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, views);
                 startActivity(intent, options.toBundle());
+
 
             }
         });

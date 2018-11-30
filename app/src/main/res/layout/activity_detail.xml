@@ -7,19 +7,42 @@
     tools:context=".DetailActivity">
 
     <ImageView
-        android:id="@+id/coffee"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:id="@+id/cat"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/cat"
+        android:transitionName="catTransition"
+        />
+
+
+    <ImageView
+        android:id="@+id/dog"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coffee"
+        app:srcCompat="@drawable/dog"
+        android:transitionName="dogTransition"
+        />
+
+    <ImageView
+        android:id="@+id/coffee"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
         android:scaleType="centerCrop"
         android:transitionName="coffee"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coffee" />
     <TextView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coffee"
