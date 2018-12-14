@@ -13,11 +13,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
+        android:transitionName="catTransition"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/cat"
-        android:transitionName="catTransition"
-        />
+        app:srcCompat="@drawable/cat" />
 
 
     <ImageView
@@ -26,11 +25,10 @@
         android:layout_height="150dp"
         android:layout_marginEnd="8dp"
         android:scaleType="centerCrop"
+        android:transitionName="dogTransition"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/dog"
-        android:transitionName="dogTransition"
-        />
+        app:srcCompat="@drawable/dog" />
 
     <ImageView
         android:id="@+id/coffee"
@@ -43,16 +41,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/coffee" />
+
     <TextView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coffee"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="@string/click_on_coffee"
         android:padding="@dimen/padding"
-        />
+        android:text="@string/click_on_coffee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coffee" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="246dp"
+        android:text="@string/start_new_activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cat"
+        app:layout_constraintTop_toBottomOf="@+id/coffee" />
 
 
 </android.support.constraint.ConstraintLayout>

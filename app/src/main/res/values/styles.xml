@@ -9,9 +9,10 @@
         <item name="android:windowContentTransitions">true</item>
         <!--<item name="android:windowActivityTransitions">true</item>-->
         <!--<item name="android:windowSharedElementExitTransition">@transition/window_exit</item>-->
-        <!--<item name="android:windowReenterTransition">@transition/window_reenter</item>-->
-        <!--<item name="android:windowReturnTransition">@transition/window_return</item>-->
-        <!--<item name="android:windowEnterTransition">@transition/window_enter</item>-->
+        <item name="android:windowReenterTransition">@transition/window_reenter</item>
+        <item name="android:windowReturnTransition">@transition/window_return</item>
+        <item name="android:windowEnterTransition">@transition/window_enter</item>
+        <item name="android:windowExitAnimation">@transition/window_exit</item>
     </style>
 
 </resources>

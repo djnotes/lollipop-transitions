@@ -1,6 +1,7 @@
 package me.mehdi.lollipoptransitions;
 
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Scene mScene2;
     Button mButton;
     GridView mGridView;
+    Button mStartContentTransition;
 
 
     Transition mTransform;
@@ -64,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         mGridView = findViewById(R.id.gridview);
 
         mRect = mDogImage.getClipBounds();
+
+        mStartContentTransition = findViewById(R.id.contentTransitions);
+
+
 
         mGridView.setAdapter(new GridAdapter(this));
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
                     mClipStarted = true;
                 }
 
+            }
+        });
+
+        mStartContentTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View button) {
+                startActivity(new Intent(MainActivity.this, DetailActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
 

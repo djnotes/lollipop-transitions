@@ -7,4 +7,6 @@
     <string name="coffee_title">A delicious cup of coffee in the morning</string>
     <string name="click_on_coffee">Click on the coffee to see a shared-element transition</string>
     <string name="coffee">coffee</string>
+    <string name="content_transitions">Content Transitions</string>
+    <string name="start_new_activity">Start New Activity</string>
 </resources>
