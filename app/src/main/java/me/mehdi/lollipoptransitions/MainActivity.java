@@ -69,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         mStartContentTransition = findViewById(R.id.contentTransitions);
 
+        //Set up exit and reenter transitions
+        getWindow().setExitTransition(TransitionInflater.from(mContext).inflateTransition(R.transition.window_exit));
+        getWindow().setReenterTransition(TransitionInflater.from(mContext).inflateTransition(R.transition.window_reenter));
+
 
 
         mGridView.setAdapter(new GridAdapter(this));
