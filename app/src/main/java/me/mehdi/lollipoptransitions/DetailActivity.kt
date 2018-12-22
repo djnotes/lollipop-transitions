@@ -23,8 +23,8 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
 
             //Set up exit and reenter transitions
-            window.exitTransition = TransitionInflater.from(mContext).inflateTransition(R.transition.window_exit)
-            window.reenterTransition = TransitionInflater.from(mContext).inflateTransition(R.transition.window_reenter)
+//            window.exitTransition = TransitionInflater.from(mContext).inflateTransition(R.transition.window_exit)
+//            window.reenterTransition = TransitionInflater.from(mContext).inflateTransition(R.transition.window_reenter)
 
         }
 

@@ -9,8 +9,9 @@
         <item name="android:transition">@transition/arc_motion</item>
         <item name="android:fragmentEnterTransition">@transition/window_enter</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowReturnTransition">@transition/window_return</item>
-        <!--<item name="android:windowEnterTransition">@transition/window_enter</item>-->
+        <!--<item name="android:windowReturnTransition">@transition/window_return</item>-->
+        <item name="android:windowEnterTransition">@transition/window_enter</item>
+        <item name="android:windowExitAnimation">@transition/window_exit</item>
     </style>
 
 </resources>

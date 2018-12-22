@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<transitionSet android:duration="5000"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-   <fade android:fadingMode="fade_out"/>
-</transitionSet>
+<explode
+    xmlns:android="http://schemas.android.com/apk/res/android" />
