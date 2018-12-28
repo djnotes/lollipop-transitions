@@ -18,6 +18,7 @@ import android.transition.ChangeBounds;
 import android.transition.ChangeClipBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
+import android.transition.Explode;
 import android.transition.Scene;
 import android.transition.Slide;
 import android.transition.Transition;
