@@ -116,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(mRoot, R.string.arc_motion, Snackbar.LENGTH_LONG).show();
                         break;
                     case 2:
-                        startActivity(new Intent(MainActivity.this, DetailActivity.class), ActivityOptionsCompat.makeThumbnailScaleUpAnimation(mCoffeeImage, BitmapFactory.decodeResource(getResources(), R.drawable.girl), 0, 0).toBundle());
+                        Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class);
+//                        startActivity(detailIntent, ActivityOptionsCompat.makeThumbnailScaleUpAnimation(mCoffeeImage, BitmapFactory.decodeResource(getResources(), R.drawable.girl), 0, 0).toBundle());
+                        startActivity(detailIntent);
                         break;
                 }
             }

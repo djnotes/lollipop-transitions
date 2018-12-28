@@ -6,12 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:transition">@transition/arc_motion</item>
         <item name="android:fragmentEnterTransition">@transition/window_enter</item>
         <item name="android:windowContentTransitions">true</item>
-        <!--<item name="android:windowReturnTransition">@transition/window_return</item>-->
         <item name="android:windowEnterTransition">@transition/window_enter</item>
-        <item name="android:windowExitAnimation">@transition/window_exit</item>
+        <item name="android:windowExitTransition">@transition/window_exit</item>
+        <item name="android:windowReturnTransition">@transition/window_return</item>
+        <item name="android:windowReenterTransition">@transition/window_reenter</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+
     </style>
 
 </resources>

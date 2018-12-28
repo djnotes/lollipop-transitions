@@ -13,13 +13,16 @@ class DetailActivity : AppCompatActivity() {
 
     val mContext: Context = this
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+
         val mStart: Button = findViewById(R.id.start)
         mStart.setOnClickListener {
-            var intent: Intent = Intent(this, AboutActivity::class.java)
+            val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
 
             //Set up exit and reenter transitions
